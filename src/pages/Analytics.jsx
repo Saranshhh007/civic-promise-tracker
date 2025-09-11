@@ -6,33 +6,10 @@ import {
   FaChartBar
 } from 'react-icons/fa';
 
-interface AnalyticsData {
-  statusDistribution: {
-    completed: number;
-    inProgress: number;
-    pending: number;
-  };
-  monthlyData: {
-    month: string;
-    statements: number;
-    completed: number;
-  }[];
-  categoryStats: {
-    category: string;
-    count: number;
-    completionRate: number;
-  }[];
-  trends: {
-    totalChange: number;
-    completedChange: number;
-    avgCompletionTime: number;
-  };
-}
-
-const Analytics: React.FC = () => {
-  const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
+const Analytics = () => {
+  const [analyticsData, setAnalyticsData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Mock API call to fetch analytics data
@@ -45,7 +22,7 @@ const Analytics: React.FC = () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         
         // Mock API response - would typically come from /api/analytics
-        const mockAnalyticsData: AnalyticsData = {
+        const mockAnalyticsData = {
           statusDistribution: {
             completed: 45,
             inProgress: 67,
@@ -86,13 +63,11 @@ const Analytics: React.FC = () => {
     fetchAnalyticsData();
   }, []);
 
-  const getTrendIcon = (change: number) => {
-    if (change > 0) return FaChartLine;
-    if (change < 0) return FaChartLine;
+  const getTrendIcon = (change) => {
     return FaChartLine;
   };
 
-  const getTrendColor = (change: number) => {
+  const getTrendColor = (change) => {
     if (change > 0) return 'text-status-success';
     if (change < 0) return 'text-status-error';
     return 'text-foreground-muted';
@@ -310,7 +285,7 @@ const Analytics: React.FC = () => {
             </div>
             
             <div className="space-y-3">
-              {analyticsData.monthlyData.map((data, index) => (
+              {analyticsData.monthlyData.map((data) => (
                 <div key={data.month} className="flex items-center space-x-3">
                   <div className="w-8 text-xs text-foreground-muted font-medium">
                     {data.month}
@@ -349,7 +324,7 @@ const Analytics: React.FC = () => {
           </div>
           
           <div className="space-y-4">
-            {analyticsData.categoryStats.map((category, index) => (
+            {analyticsData.categoryStats.map((category) => (
               <div key={category.category} className="flex items-center justify-between p-4 bg-muted rounded-lg">
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-2">

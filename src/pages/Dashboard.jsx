@@ -9,29 +9,14 @@ import {
   FaArrowRight,
 } from 'react-icons/fa';
 
-interface StatementSummary {
-  id: string;
-  title: string;
-  official: string;
-  date: string;
-  status: 'completed' | 'in-progress' | 'pending';
-}
-
-interface DashboardStats {
-  totalStatements: number;
-  completed: number;
-  inProgress: number;
-  pending: number;
-}
-
-const Dashboard: React.FC = () => {
-  const [stats, setStats] = useState<DashboardStats>({
+const Dashboard = () => {
+  const [stats, setStats] = useState({
     totalStatements: 0,
     completed: 0,
     inProgress: 0,
     pending: 0
   });
-  const [recentStatements, setRecentStatements] = useState<StatementSummary[]>([]);
+  const [recentStatements, setRecentStatements] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,14 +29,14 @@ const Dashboard: React.FC = () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         
         // Mock API response
-        const mockStats: DashboardStats = {
+        const mockStats = {
           totalStatements: 156,
           completed: 45,
           inProgress: 67,
           pending: 44
         };
 
-        const mockRecentStatements: StatementSummary[] = [
+        const mockRecentStatements = [
           {
             id: '1',
             title: 'Infrastructure Development in Rural Areas',
@@ -132,7 +117,7 @@ const Dashboard: React.FC = () => {
     }
   ];
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (status) => {
     switch (status) {
       case 'completed':
         return 'status-completed';
@@ -145,7 +130,7 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const getStatusLabel = (status: string) => {
+  const getStatusLabel = (status) => {
     switch (status) {
       case 'completed':
         return 'Completed';
