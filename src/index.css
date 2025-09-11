@@ -2,95 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* CivicSamadhaan Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Main Brand Colors */
+    --primary: 229 84% 59%;           /* #4361ee - primary blue */
+    --primary-hover: 243 78% 35%;     /* #3a0ca3 - dark blue */
+    --primary-foreground: 0 0% 100%;  /* white text on primary */
 
+    /* Background & Surface */
+    --background: 210 17% 97%;        /* #f8f9fa - light gray */
+    --surface: 0 0% 100%;             /* #ffffff - white */
+    --surface-hover: 210 20% 95%;     /* slightly darker white */
+
+    /* Text Colors */
+    --foreground: 220 25% 15%;        /* dark text */
+    --foreground-muted: 220 15% 45%;  /* muted text */
+
+    /* Status Colors */
+    --status-success: 195 80% 63%;    /* #4cc9f0 - success blue */
+    --status-warning: 338 86% 58%;    /* #f72585 - warning pink */
+    --status-error: 270 90% 40%;      /* #7209b7 - error purple */
+    --status-pending: 45 93% 58%;     /* #ffd60a - pending yellow */
+
+    /* Status Backgrounds (lighter versions) */
+    --status-success-bg: 195 80% 95%;
+    --status-warning-bg: 338 86% 95%;
+    --status-error-bg: 270 90% 95%;
+    --status-pending-bg: 45 93% 95%;
+
+    /* Semantic Colors */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 25% 15%;
+    --border: 220 15% 90%;
+    --input: 220 15% 94%;
+    --ring: 229 84% 59%;
+    --muted: 210 20% 95%;
+    --muted-foreground: 220 15% 45%;
+    --accent: 229 84% 59%;
+    --accent-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(229 84% 59%), hsl(243 78% 35%));
+    --gradient-surface: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 20% 98%));
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(220 25% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(220 25% 15% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(220 25% 15% / 0.1);
+    --shadow-card: 0 4px 12px hsl(229 84% 59% / 0.15);
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Animations */
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --radius: 0.75rem;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 25% 15%;
+    --sidebar-primary: 229 84% 59%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 210 20% 95%;
+    --sidebar-accent-foreground: 220 25% 15%;
+    --sidebar-border: 220 15% 90%;
+    --sidebar-ring: 229 84% 59%;
   }
 }
 
@@ -100,6 +77,69 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground;
+  }
+}
+
+@layer components {
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .status-completed {
+    @apply bg-status-success-bg text-status-success;
+  }
+
+  .status-in-progress {
+    @apply bg-status-pending-bg text-status-pending;
+  }
+
+  .status-pending {
+    @apply bg-status-warning-bg text-status-warning;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary-hover;
+    @apply transition-colors duration-200 rounded-lg px-4 py-2 font-medium;
+  }
+
+  .card-elegant {
+    @apply bg-surface border border-border rounded-xl p-6;
+    box-shadow: var(--shadow-card);
+  }
+
+  .table-modern {
+    @apply w-full border-collapse bg-surface rounded-lg overflow-hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .table-modern th {
+    @apply bg-muted text-foreground-muted font-semibold text-left px-6 py-4 text-sm;
+  }
+
+  .table-modern td {
+    @apply px-6 py-4 text-sm border-t border-border;
+  }
+
+  .table-modern tr:hover {
+    @apply bg-surface-hover;
   }
 }
