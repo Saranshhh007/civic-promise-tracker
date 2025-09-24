@@ -10,7 +10,12 @@ import {
   FaCheckCircle 
 } from 'react-icons/fa';
 
-const Sidebar = ({ isOpen, onClose }) => {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
 
   const navigation = [
@@ -52,7 +57,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     }
   ];
 
-  const isActiveRoute = (path) => {
+  const isActiveRoute = (path: string) => {
     return location.pathname === path;
   };
 

@@ -2,10 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaFilter, FaEye, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const Statements = () => {
-  const [statements, setStatements] = useState([]);
+interface Statement {
+  id: string;
+  title: string;
+  official: string;
+  category: string;
+  date: string;
+  status: 'completed' | 'in-progress' | 'pending';
+}
+
+const Statements: React.FC = () => {
+  const [statements, setStatements] = useState<Statement[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   
   // Filter and search states
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,7 +37,7 @@ const Statements = () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         
         // Mock API response - would typically come from /api/statements
-        const mockStatements = [
+        const mockStatements: Statement[] = [
           {
             id: '1',
             title: 'Infrastructure Development in Rural Areas',
@@ -164,7 +173,7 @@ const Statements = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedStatements = filteredStatements.slice(startIndex, startIndex + itemsPerPage);
 
-  const getStatusBadge = (status) => {
+  const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
         return 'status-completed';
@@ -177,7 +186,7 @@ const Statements = () => {
     }
   };
 
-  const getStatusLabel = (status) => {
+  const getStatusLabel = (status: string) => {
     switch (status) {
       case 'completed':
         return 'Completed';

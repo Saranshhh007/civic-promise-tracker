@@ -10,11 +10,31 @@ import {
   FaExclamationTriangle
 } from 'react-icons/fa';
 
-const StatementDetail = () => {
-  const { id } = useParams();
-  const [statement, setStatement] = useState(null);
+interface StatementDetail {
+  id: string;
+  title: string;
+  content: string;
+  official: string;
+  category: string;
+  date: string;
+  status: 'completed' | 'in-progress' | 'pending';
+  description: string;
+  timeline: TimelineEvent[];
+}
+
+interface TimelineEvent {
+  id: string;
+  date: string;
+  title: string;
+  description: string;
+  type: 'announcement' | 'progress' | 'completion' | 'update';
+}
+
+const StatementDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const [statement, setStatement] = useState<StatementDetail | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Mock API call to fetch statement details
@@ -27,7 +47,7 @@ const StatementDetail = () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         
         // Mock API response - would typically come from /api/statements/${id}
-        const mockStatement = {
+        const mockStatement: StatementDetail = {
           id: id || '1',
           title: 'Infrastructure Development in Rural Areas',
           content: `This comprehensive initiative aims to transform rural infrastructure across the nation through strategic investments in roads, bridges, telecommunications, and essential services. The program encompasses multiple phases designed to bridge the urban-rural divide and ensure equitable development opportunities for all citizens.
@@ -103,7 +123,7 @@ The project is being executed in partnership with state governments, local autho
     }
   }, [id]);
 
-  const getStatusBadge = (status) => {
+  const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
         return 'status-completed';
@@ -116,7 +136,7 @@ The project is being executed in partnership with state governments, local autho
     }
   };
 
-  const getStatusLabel = (status) => {
+  const getStatusLabel = (status: string) => {
     switch (status) {
       case 'completed':
         return 'Completed';
@@ -129,7 +149,7 @@ The project is being executed in partnership with state governments, local autho
     }
   };
 
-  const getTimelineIcon = (type) => {
+  const getTimelineIcon = (type: string) => {
     switch (type) {
       case 'announcement':
         return FaExclamationTriangle;
@@ -142,7 +162,7 @@ The project is being executed in partnership with state governments, local autho
     }
   };
 
-  const getTimelineColor = (type) => {
+  const getTimelineColor = (type: string) => {
     switch (type) {
       case 'announcement':
         return 'bg-primary text-primary-foreground';
@@ -275,26 +295,20 @@ The project is being executed in partnership with state governments, local autho
             
             // Handle numbered points (lines starting with numbers)
             if (/^\d+\./.test(paragraph.trim())) {
-              const match = paragraph.match(/^(\d+\.\s*)(.*)/);
-              if (match) {
-                const [, number, content] = match;
-                if (content.startsWith('**') && content.includes('**:')) {
-                  const contentMatch = content.match(/\*\*(.*?)\*\*:\s*(.*)/);
-                  if (contentMatch) {
-                    const [, title, description] = contentMatch;
-                    return (
-                      <div key={index} className="mb-4">
-                        <div className="flex items-start space-x-3">
-                          <span className="text-primary font-semibold">{number}</span>
-                          <div>
-                            <h4 className="font-semibold text-foreground">{title}</h4>
-                            <p className="text-foreground-muted mt-1">{description}</p>
-                          </div>
-                        </div>
+              const [, number, content] = paragraph.match(/^(\d+\.\s*)(.*)/) || [];
+              if (content.startsWith('**') && content.includes('**:')) {
+                const [, title, description] = content.match(/\*\*(.*?)\*\*:\s*(.*)/) || [];
+                return (
+                  <div key={index} className="mb-4">
+                    <div className="flex items-start space-x-3">
+                      <span className="text-primary font-semibold">{number}</span>
+                      <div>
+                        <h4 className="font-semibold text-foreground">{title}</h4>
+                        <p className="text-foreground-muted mt-1">{description}</p>
                       </div>
-                    );
-                  }
-                }
+                    </div>
+                  </div>
+                );
               }
             }
             

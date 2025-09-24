@@ -3,7 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa';
 import AuthModal from './AuthModal';
 
-const Header = ({ onMenuClick }) => {
+interface HeaderProps {
+  onMenuClick: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock authentication state
@@ -15,7 +19,7 @@ const Header = ({ onMenuClick }) => {
     { name: 'Analytics', href: '/analytics' },
   ];
 
-  const isActiveRoute = (path) => {
+  const isActiveRoute = (path: string) => {
     return location.pathname === path;
   };
 
